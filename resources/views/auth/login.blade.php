@@ -8,13 +8,17 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col text-center">
+                            <button class="btn btn-warning" onclick="loginWeb3()">{{ __('Sign in with MetaMask') }}</button>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col text-center">{{ __('Or') }}</div>
+                    </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="row mb-3">
-                            <div class="col text-center">
-                                <button class="btn btn-warning" onclick="loginWeb3(true)">{{ __('Sign in with MetaMask') }}</button>
-                            </div>
-                        </div>
+
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
@@ -22,9 +26,9 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -36,9 +40,9 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -67,6 +71,9 @@
                                     </a>
                                 @endif
                             </div>
+                        </div>
+                        <div class="row mt-3 pt-3 border-top">
+                            <div class="col text-center">{{ __("Don't have an account?") }} <a href="{{ route('register') }}">{{ __('Free Sign Up') }}</a></div>
                         </div>
                     </form>
                 </div>
