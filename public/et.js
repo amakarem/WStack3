@@ -93,8 +93,8 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     });
 
     swapBody = {
-        from: src.trim(),
-        to: dst.trim(),
+        src: src.trim(),
+        dst: dst.trim(),
         chainID: 1,
         amount: toWei(val, decimals),
     };
