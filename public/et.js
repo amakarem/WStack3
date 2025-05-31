@@ -106,7 +106,7 @@ async function initWeb3() {
             if (document.getElementById("web3_networks")) {
                 web3_networks = true;
             }
-            if (document.getElementById("web3_wallet")) {
+            //if (document.getElementById("web3_wallet")) {
                 i = 0;
                 chains.forEach((network) => {
                     if (network.chainId == networkID) {
@@ -125,7 +125,7 @@ async function initWeb3() {
                         return;
                     }
                 });
-            }
+            //}
             if (document.getElementById("eth_chain") && typeof network_name != 'undefined') {
                 document.getElementById("eth_chain").innerHTML = network_name;
             }
