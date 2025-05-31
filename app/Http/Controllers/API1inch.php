@@ -74,8 +74,21 @@ class API1inch extends Controller
     public function wallet($address)
     {
         header("Content-Type: application/json");
-        $wallet = $this->get('https://api.1inch.dev/swap/v6.0/1/tokens');
-        $wallet = $wallet["tokens"];
+        $walletcache_file = base_path() . '/wallet.php';
+        if (file_exists($walletcache_file)) {
+            $walletcache = include $walletcache_file;
+            if (isset($walletcache['created_at']) && (time() - $walletcache['created_at']) <= 72000) {
+                $wallet = $walletcache;
+            }
+        }
+        if (!isset($wallet)) {
+            $wallet = $this->get('https://api.1inch.dev/swap/v6.0/1/tokens');
+            $wallet = $wallet["tokens"];
+            $wallet['created_at'] = time();
+            file_put_contents($walletcache_file, '<?php return ' . var_export($walletcache, true) . ';');
+        }
+        unset($wallet['created_at']);
+
         $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
             if (!isset($wallet[$key])) {
@@ -85,7 +98,20 @@ class API1inch extends Controller
             $wallet[$key]["balance"] = $this->convertBigIntToDecimal($value, $decimals);;
         }
         unset($balances);
-        $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
+
+        $pricescache_file = base_path() . '/prices.php';
+        if (file_exists($pricescache_file)) {
+            $pricescache = include $pricescache_file;
+            if (isset($pricescache['created_at']) && (time() - $pricescache['created_at']) <= 60) {
+                $prices = $pricescache;
+            }
+        }
+        if (!isset($prices)) {
+            $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
+            $prices['created_at'] = time();
+            file_put_contents($pricescache_file, '<?php return ' . var_export($prices, true) . ';');
+        }
+        unset($prices['created_at']);
         foreach ($prices as $key => $value) {
             if (!isset($wallet[$key])) {
                 continue;

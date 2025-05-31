@@ -112,7 +112,7 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     if (typeof data["dstAmount"] != 'undefined') {
         data["dstAmount"] = fromWei(data["dstAmount"], decimals);
         if (document.getElementById("swapAmountVal")) {
-            document.getElementById("swapAmountVal").innerHTML = data["dstAmount"];
+            document.getElementById("swapAmountVal").value = data["dstAmount"];
             let fun = "getswapquote('" + dst + "')";
             document.getElementById("swapAmountVal").setAttribute("onchange", fun);
         }
