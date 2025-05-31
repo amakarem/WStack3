@@ -40,14 +40,15 @@ class API1inch extends Controller
     {
         header("Content-Type: application/json");
         $wallet = $this->get('https://api.1inch.dev/swap/v5.2/1/tokens');
+        $wallet = $wallet["tokens"];
         $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
-            $wallet["tokens"][$key]["balance"] = $value;
+            $wallet[$key]["balance"] = $value;
         }
         unset($balances);
         $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
         foreach ($prices as $key => $value) {
-            $wallet["tokens"][$key]["price"] = $value;
+            $wallet[$key]["price"] = $value;
         }
         unset($prices);
         print_r(json_encode($wallet));

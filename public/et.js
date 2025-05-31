@@ -56,6 +56,7 @@ async function getall(id)
 
     let data = await response.json();
     console.log(data);
+    return data;
 }
 
 async function initWeb3() {
