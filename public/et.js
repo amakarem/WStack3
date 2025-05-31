@@ -136,40 +136,49 @@ async function logoutWeb3() {
     const web3 = new Web3(window.ethereum);
     web3.eth.currentProvider.disconnect()
 }
+
 async function loginWeb3() {
     if (!window.ethereum) {
-        alert('MetaMask not detected. Please try again from a MetaMask enabled browser.')
+        alert('MetaMask not detected. Please try again from a MetaMask enabled browser.');
+        return;
     }
 
     const web3 = new Web3(window.ethereum);
-
     const authenticateUrl = '/auth/web3/authenticate';
     const redirectUrl = '/';
 
     const message = "Please sign me in to (https://eth.onyxberg.us).";
+
     const address = (await web3.eth.requestAccounts())[0];
-    // const signature = await web3.eth.personal.sign(message, address, csrf_token);
 
     const signature = await window.ethereum.request({
         method: 'personal_sign',
         params: [message, address],
     });
 
-    response = await fetch(authenticateUrl, {
+    const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    const response = await fetch(authenticateUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
         body: JSON.stringify({
-            'message': message,
-            'address': address,
-            'signature': signature,
-            '_token': csrf_token
+            message: message,
+            address: address,
+            signature: signature,
+            _token: csrf_token
         })
     });
-    const data = await response.text();
-    if (data) {
-        window.location = '/';
+
+    const data = await response.json();
+
+    if (data.success) {
+        window.location.href = redirectUrl;
+    } else {
+        alert("Login failed: " + (data.message || "Unknown error."));
+        console.error("Login error:", data);
     }
 }
 
