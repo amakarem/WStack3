@@ -23,6 +23,10 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+Route::get('/model/swap', function () {
+    return view('model.swap');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

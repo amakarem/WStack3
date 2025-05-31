@@ -39,6 +39,42 @@ async function eth_refresh() {
     }, 10000);
 }
 
+
+function LoadSearchModal() {
+  if (document.getElementById("SearchModal-body") === null) {
+    let URL = '/modal/swap/';
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        LoadModal(this.responseText);
+        let myModal = new bootstrap.Modal(document.getElementById('SearchModal'));
+        if (document.getElementById('localmarket-Label') !== null) {
+          if (typeof exchange !== 'undefined') {
+            document.getElementById('localmarket-Label').innerHTML = exchange;
+            document.getElementById('localmarket').checked = true;
+          } else {
+            try {
+              document.getElementById('localmarket-Label').innerHTML = "";
+              document.getElementById('localmarket').setAttribute('disabled', 'true');
+              document.getElementById('allmarkets').setAttribute('disabled', 'true');
+              document.getElementById('allmarkets').checked = true;
+            } catch (err) {
+              console.log(err.message);
+            }
+          }
+        }
+        myModal.toggle();
+      }
+    };
+    xhttp.open("GET", URL);
+    xhttp.send();
+  } else {
+    document.getElementById("SearchModal-result").innerHTML = '';
+    let myModal = new bootstrap.Modal(document.getElementById('SearchModal'));
+    myModal.toggle();
+  }
+}
+
 async function getall(id) {
     if (document.getElementById("web3_wallet_1inch")) {
         let url = '/web3/wallet/' + id;
