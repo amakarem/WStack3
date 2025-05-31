@@ -126,11 +126,6 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 
 async function swapnow() {
-    val = 0;
-    var decimals = 18;
-    if (typeof alldata[dst]['decimals'] != 'undefined') {
-        decimals = alldata[dst]['decimals'];
-    }
     let url = '/web3/swapnow';
     let response = await fetch(url, {
         method: 'POST',
