@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 
-use App\User;
+use App\Models\User;
 use Elliptic\EC;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
