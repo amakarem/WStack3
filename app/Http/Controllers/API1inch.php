@@ -98,11 +98,13 @@ class API1inch extends Controller
         foreach ($wallet as $key => $value) {
             if (!isset($value["price"]) || $value["price"] == 0) {
                 unset($wallet[$key]);
+            } else if (!isset($value["tags"]["crosschain"])) {
+                unset($wallet[$key]);
             } else {
-                unset($wallet["decimals"]);
-                unset($wallet["eip2612"]);
-                unset($wallet["tags"]);
-                $wallet["address"] = trim(str_replace(" ", "", $wallet["address"]));
+                unset($wallet[$key]["decimals"]);
+                unset($wallet[$key]["eip2612"]);
+                unset($wallet[$key]["tags"]);
+                $wallet[$key]["address"] = trim(str_replace(" ", "", $wallet[$key]["address"]));
             }
         }
         print_r(json_encode($wallet));
