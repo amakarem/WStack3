@@ -20,7 +20,7 @@ if (window.ethereum) {
     let script = document.createElement('script');
     script.async = true;
     script.id = 'web3js';
-    script.src = 'https://cdn.jsdelivr.net/npm/web3@4.6.0/dist/web3.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/web3@4.16.0/dist/web3.min.js';
     if (typeof eth_address == 'string') {
         script.setAttribute('onload', 'initWeb3();');
         window.ethereum.on('accountsChanged', async () => {
