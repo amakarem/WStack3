@@ -10,7 +10,11 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                        <div class="row mb-3">
+                            <div class="col text-center">
+                                <button class="btn btn-warning" onclick="loginWeb3(true)">{{ __('Sign in with MetaMask') }}</button>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
