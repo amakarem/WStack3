@@ -99,6 +99,12 @@ function search(input) {
   xhttp.send();
 }
 
+function LoadModal(html) {
+  let body = document.getElementById('app');
+  let modal = document.createElement('div');
+  modal.innerHTML = html;
+  body.appendChild(modal);
+}
 
 function LoadswapswapsearchModal() {
   if (document.getElementById("swapswapsearchModal-body") === null) {
