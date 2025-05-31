@@ -13,6 +13,7 @@ try {
     console.log(err.message);
 }
 var alldata;
+var swaporder;
 if (window.ethereum) {
     var Balance = 0;
     var GasPrice = 0;
@@ -72,8 +73,16 @@ async function getswapquote(dst) {
     {
         decimals = alldata[dst]['decimals'];
     }
+    swaporder = JSON.stringify({
+                from: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+                to: dst.trim(),
+                chainID: 1,
+                amount: toWei(val, decimals),
+            });
+
     const modal = new bootstrap.Modal(document.getElementById('swapquoteModalToggle2'));
     modal.show();
+    console.log(swaporder);
     let url = '/web3/getswapquote';
         let response = await fetch(url, {
             method: 'POST',
