@@ -13,7 +13,7 @@
 
                         <div class="row mb-3">
                             <div class="col text-center">
-                                <button class="btn btn-warning" onclick="loginWeb3()">{{ __('Continue with MetaMask') }}</button>
+                                <button class="btn btn-warning" onclick="loginWeb3(true)">{{ __('Continue with MetaMask') }}</button>
                             </div>
                         </div>
                         <div class="row mb-3">
