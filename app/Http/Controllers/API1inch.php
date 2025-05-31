@@ -78,8 +78,7 @@ class API1inch extends Controller
         $wallet = $wallet["tokens"];
         $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
-            if (!isset($wallet[$key]))
-            {
+            if (!isset($wallet[$key])) {
                 continue;
             }
             $decimals = $wallet[$key]["decimals"];
@@ -88,8 +87,7 @@ class API1inch extends Controller
         unset($balances);
         $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
         foreach ($prices as $key => $value) {
-            if (!isset($wallet[$key]))
-            {
+            if (!isset($wallet[$key])) {
                 continue;
             }
             $decimals = $wallet[$key]["decimals"];
@@ -108,4 +106,35 @@ class API1inch extends Controller
         }
         print_r(json_encode($wallet));
     }
+
+    public function getswapquote(Request $request)
+    {
+        $input = $request->all();
+        $chainID = $input["chainID"];
+        $params = http_build_query([
+            'src' => $input["from"],
+            'dst' => $input["to"],
+            'amount' => $input["amount"]
+        ]);
+        $url = "https://api.1inch.dev/swap/v6.0/$chainID/quote?" . $params;
+        print_r(json_encode($this->get($url)));
+    }
+
+
+
+    //     $chainId = 1; // Ethereum Mainnet
+    // $fromToken = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'; // ETH
+    // $toToken = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC
+    // $amount = '1000000000000000000'; // 1 ETH in wei
+    // $fromAddress = '0xYourWalletAddress';
+    // $slippage = 1; // 1%
+    // $apiKey = 'your_1inch_api_key'; // Optional, required for 1inch Pro
+
+    // try {
+    //     $txData = get1inchSwapTx($chainId, $fromToken, $toToken, $amount, $fromAddress, $slippage, $apiKey);
+    //     print_r($txData);
+    // } catch (Exception $e) {
+    //     echo "Error: " . $e->getMessage();
+    // }
+
 }
