@@ -22,10 +22,10 @@ if (window.ethereum) {
     script.id = 'web3js';
     script.src = 'https://cdn.jsdelivr.net/npm/web3@4.16.0/dist/web3.min.js';
     //if (typeof eth_address == 'string') {
-        script.setAttribute('onload', 'initWeb3();');
-        window.ethereum.on('accountsChanged', async () => {
-            initWeb3();
-        });
+    script.setAttribute('onload', 'initWeb3();');
+    window.ethereum.on('accountsChanged', async () => {
+        initWeb3();
+    });
     //}
     let firstScript = document.getElementsByTagName('script')[0];
     firstScript.parentNode.appendChild(script);
@@ -42,8 +42,7 @@ async function eth_refresh() {
 async function initWeb3() {
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
-    if (typeof accounts == 'object')
-    {
+    if (typeof accounts == 'object') {
         eth_address = accounts[0];
         console.log("detected");
     }
@@ -135,7 +134,7 @@ async function logoutWeb3() {
         alert('MetaMask not detected. Please try again from a MetaMask enabled browser.')
     }
     const web3 = new Web3(window.ethereum);
-    web3.eth.currentProvider.disconnect() 
+    web3.eth.currentProvider.disconnect()
 }
 async function loginWeb3() {
     if (!window.ethereum) {
@@ -149,7 +148,12 @@ async function loginWeb3() {
 
     const message = "Please sign me in to (https://eth.onyxberg.us).";
     const address = (await web3.eth.requestAccounts())[0];
-    const signature = await web3.eth.personal.sign(message, address, csrf_token);
+    // const signature = await web3.eth.personal.sign(message, address, csrf_token);
+
+    const signature = await window.ethereum.request({
+        method: 'personal_sign',
+        params: [message, address],
+    });
 
     response = await fetch(authenticateUrl, {
         method: 'POST',
