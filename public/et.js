@@ -40,14 +40,14 @@ async function eth_refresh() {
 }
 
 
-function LoadSearchModal() {
-  if (document.getElementById("SearchModal-body") === null) {
+function LoadswapsearchModal() {
+  if (document.getElementById("swapsearchModal-body") === null) {
     let URL = '/modal/swap/';
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         LoadModal(this.responseText);
-        let myModal = new bootstrap.Modal(document.getElementById('SearchModal'));
+        let myModal = new bootstrap.Modal(document.getElementById('swapsearchModal'));
         if (document.getElementById('localmarket-Label') !== null) {
           if (typeof exchange !== 'undefined') {
             document.getElementById('localmarket-Label').innerHTML = exchange;
@@ -69,8 +69,8 @@ function LoadSearchModal() {
     xhttp.open("GET", URL);
     xhttp.send();
   } else {
-    document.getElementById("SearchModal-result").innerHTML = '';
-    let myModal = new bootstrap.Modal(document.getElementById('SearchModal'));
+    document.getElementById("swapsearchModal-result").innerHTML = '';
+    let myModal = new bootstrap.Modal(document.getElementById('swapsearchModal'));
     myModal.toggle();
   }
 }
