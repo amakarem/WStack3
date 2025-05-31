@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::post('/auth/web3/authenticate', \App\Http\Controllers\Web3AuthController::class);
-Route::post('/web3/wallet', \App\Http\Controllers\MainController::class, 'wallet');
+Route::post('/web3/wallet{address}', 'MainController@wallet')->name('wallet');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
