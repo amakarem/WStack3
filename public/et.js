@@ -49,7 +49,8 @@ async function initWeb3() {
     if (typeof eth_address == 'string') {
         try {
             let loginbtn = document.getElementById("web3login");
-            loginbtn.innerHTML = "Disconnect";
+            loginbtn.innerHTML = eth_address;
+            loginbtn.setAttribute("disabled", true);
         } catch (err) {
             console.log(err.message);
         }
@@ -99,6 +100,7 @@ async function initWeb3() {
             try {
                 let loginbtn = document.getElementById("web3login");
                 loginbtn.innerHTML = "Connect Wallet";
+                loginbtn.removeAttribute("disabled");
                 document.getElementById('logout-form').submit();
             } catch (err) {
                 console.log(err.message);
