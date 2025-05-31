@@ -43,9 +43,9 @@ async function getswapquote(dst) {
     val = 0;
     if (document.getElementById("amount" + dst))
     {
-        val = document.getElementById("amount" + dst).val;
+        val = document.getElementById("amount" + dst).value;
     }
-    if (val == 0)
+    if (val == 0 || typeof val == "undefined")
     {
         alert("Enter Valid Amount to Swap");
         return ;
