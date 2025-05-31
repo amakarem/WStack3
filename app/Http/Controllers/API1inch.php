@@ -39,13 +39,13 @@ class API1inch extends Controller
     public function wallet($address)
     {
         header("Content-Type: application/json");
-        $wallet = get('https://api.1inch.dev/swap/v5.2/1/tokens');
-        $balances = get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
+        $wallet = $this->get('https://api.1inch.dev/swap/v5.2/1/tokens');
+        $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
             $wallet["tokens"][$key]["balance"] = $value;
         }
         unset($balances);
-        $prices = get('https://api.1inch.dev/price/v1.1/1');
+        $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
         foreach ($prices as $key => $value) {
             $wallet["tokens"][$key]["price"] = $value;
         }
