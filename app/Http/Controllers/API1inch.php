@@ -127,7 +127,7 @@ class API1inch extends Controller
             } else if (!isset($value["tags"]["crosschain"])) {
                 //unset($wallet[$key]);
             } else {
-                unset($wallet[$key]["decimals"]);
+                // unset($wallet[$key]["decimals"]);
                 unset($wallet[$key]["eip2612"]);
                 unset($wallet[$key]["tags"]);
                 $wallet[$key]["address"] = trim(str_replace(" ", "", $wallet[$key]["address"]));
