@@ -72,6 +72,8 @@ async function getswapquote(dst) {
     {
         decimals = alldata[dst]['decimals'];
     }
+    const modal = new bootstrap.Modal(document.getElementById('swapquoteModalToggle2'));
+    modal.show();
     let url = '/web3/getswapquote';
         let response = await fetch(url, {
             method: 'POST',
