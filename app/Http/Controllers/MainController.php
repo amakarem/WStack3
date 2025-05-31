@@ -12,48 +12,44 @@ class MainController extends Controller
      *
      * @return void
      */
-    /*
+    private $api_key;
     public function __construct()
     {
-    $this->middleware('auth');
+        $this->api_key = 'KikRlBQi8QbcbbV09wnZZ2PPa5UsyCA2';
     }
-     */
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function get($url)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $this->api_key,
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return json_decode($response, true);
+    }
+
     public function wallet(Request $request)
     {
         header("Content-Type: application/json");
-        global $api_key;
-        $api_key = 'KikRlBQi8QbcbbV09wnZZ2PPa5UsyCA2';
-
-        function get($url)
-        {
-            global $api_key;
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $api_key,
-                ),
-            ));
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-            return json_decode($response, true);
-        }
-
         $wallet = get('https://api.1inch.dev/swap/v5.2/1/tokens');
         $balances = get('https://api.1inch.dev/balance/v1.2/1/balances/0xB00554B62F8830533CCAD1112479b0f95BD8fB20');
         foreach ($balances as $key => $value) {
