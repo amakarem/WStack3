@@ -133,10 +133,10 @@ class API1inch extends Controller
                 $wallet[$key]["address"] = trim(str_replace(" ", "", $wallet[$key]["address"]));
             }
         }
-        usort($wallet, function($a, $b) {
+        uasort($wallet, function($a, $b) {
             return $b['balance'] <=> $a['balance'];
         });
-        //$wallet = array_slice($wallet, 0, 30, true);
+        $wallet = array_slice($wallet, 0, 30, true);
         print_r(json_encode($wallet));
     }
 
