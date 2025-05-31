@@ -24,3 +24,8 @@ Route::get('/dashboard', function () {
 Route::get('/home', function () {
     return view('welcome');
 });
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
