@@ -8,7 +8,7 @@
         <script>
             const csrf_token = '{{ csrf_token() }}';
         </script>
-        <script id='web3' src="{{ asset('et.js?v=1.45') }}"></script>
+        <script id='web3' src="{{ asset('et.js?v=1.46') }}"></script>
         <script src="https://kit.fontawesome.com/610cb3f14b.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <!-- Fonts -->
@@ -94,10 +94,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Hide this modal and show the first with the button below.
+        <table class="table">
+            <tr><th>From <span id="swapFrom"></span></th><td><input type="text" value="0.0" id="swapAmount"></td></tr>
+            <tr><th>To <span id="swapTo"></span></th><td><input type="text" value="0.0" id="swapAmountVal" disabled></td></tr>
+        </table>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-target="#swapquoteModalToggle" data-bs-toggle="modal">Back to first</button>
+        <button class="btn btn-primary" data-bs-target="#swapquoteModalToggle" data-bs-toggle="modal">Cancel</button>
       </div>
     </div>
   </div>

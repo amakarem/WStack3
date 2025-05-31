@@ -57,7 +57,7 @@ function fromWei(wei, decimals = 18) {
   return fractionStr.length > 0 ? `${whole}.${fractionStr}` : whole.toString();
 }
 
-async function getswapquote(dst) {
+async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
     val = 0;
     var decimals = 18;
     if (document.getElementById("amount" + dst))
@@ -74,7 +74,7 @@ async function getswapquote(dst) {
         decimals = alldata[dst]['decimals'];
     }
     swaporder = JSON.stringify({
-                from: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+                from: src.trim(),
                 to: dst.trim(),
                 chainID: 1,
                 amount: toWei(val, decimals),
@@ -91,7 +91,7 @@ async function getswapquote(dst) {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                from: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+                from: src.trim(),
                 to: dst.trim(),
                 chainID: 1,
                 amount: toWei(val, decimals),
@@ -107,10 +107,18 @@ async function getswapquote(dst) {
         if(typeof data["dstAmount"] != 'undefined')
         {
             data["dstAmount"] = fromWei(data["dstAmount"], decimals);
-            if (document.getElementById("q" + dst)) {
-                document.getElementById("q" + dst).innerHTML = data["dstAmount"];
+            if (document.getElementById("swapFrom")) {
+                document.getElementById("swapFrom").innerHTML = '<img class="ico" src="' + alldata[src]['logoURI'] + '">' + alldata[src]['symbol'];
             }
-            alert(data["dstAmount"]);
+            if (document.getElementById("swapAmount")) {
+                document.getElementById("swapAmount").value = val;
+            }
+            if (document.getElementById("swapTo")) {
+                document.getElementById("swapTo").innerHTML = '<img class="ico" src="' + alldata[dst]['logoURI'] + '">' + alldata[dst]['symbol'];
+            }
+            if (document.getElementById("swapAmountVal")) {
+                document.getElementById("swapAmountVal").innerHTML = data["dstAmount"];
+            }
         }
         console.log(data);
 }
