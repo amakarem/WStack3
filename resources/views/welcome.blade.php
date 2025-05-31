@@ -33,7 +33,8 @@
                     @auth
                         <a href="{{ route('logout') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log Out</a>
                     @else
-                        <button class="btn btn-warning" onclick="loginWeb3()" style="background: #ffffff;padding: 10px;">{{ __('Connect MetaMask') }}</button>
+                        <button id="web3login" class="btn btn-warning" onclick="loginWeb3()" style="background: #ffffff;padding: 10px;">{{ __('Connect MetaMask') }}</button>
+                        <button id="xxweb3login" class="btn btn-warning" onclick="logoutWeb3()" style="background: #ffffff;padding: 10px;">{{ __('Disconnect MetaMask') }}</button>
                     @endauth
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">

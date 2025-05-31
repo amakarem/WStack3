@@ -42,6 +42,10 @@ async function eth_refresh() {
 async function initWeb3() {
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
+    if (typeof accounts == 'object')
+    {
+        eth_address = accounts[0];
+    }
     if (typeof eth_address == 'string') {
         console.log("connected");
         let oldBalance = Balance;
@@ -125,6 +129,13 @@ async function NetworkGas(name, node, table) {
 }
 
 
+async function logoutWeb3() {
+    if (!window.ethereum) {
+        alert('MetaMask not detected. Please try again from a MetaMask enabled browser.')
+    }
+    const web3 = new Web3(window.ethereum);
+    web3.eth.currentProvider.disconnect() 
+}
 async function loginWeb3() {
     if (!window.ethereum) {
         alert('MetaMask not detected. Please try again from a MetaMask enabled browser.')
