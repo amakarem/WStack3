@@ -315,7 +315,7 @@ async function logoutWeb3() {
     web3.eth.currentProvider.disconnect()
 }
 
-async function loginWeb3() {
+async function loginWeb3(deeplogin = false) {
     if (!window.ethereum) {
         alert('MetaMask not detected. Please try again from a MetaMask enabled browser.');
         return;
@@ -330,12 +330,15 @@ async function loginWeb3() {
 
     const address = (await web3.eth.requestAccounts())[0];
 
+    const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    if (deeplogin === false)
+    {
+        return ;
+    }
     const signature = await window.ethereum.request({
         method: 'personal_sign',
         params: [hexMessage, address],
     });
-
-    const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const response = await fetch(authenticateUrl, {
         method: 'POST',
