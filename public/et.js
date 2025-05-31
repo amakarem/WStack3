@@ -76,7 +76,8 @@ async function initWeb3() {
                 i = 0;
                 chains.forEach((network) => {
                     if (network.chainId == networkID) {
-                        document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td>' + accounts[accountKey] + '</td><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
+                        //accounts[accountKey]
+                        document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
                         if (autrefresh === false) {
                             eth_refresh();
                         }
