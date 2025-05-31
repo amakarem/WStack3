@@ -76,6 +76,10 @@ async function getswapquote(dst) {
         });
 
         let data = await response.json();
+        if(data["description"])
+        {
+            alert(data["description"]);
+        }
         console.log(data);
 }
 async function getall() {
