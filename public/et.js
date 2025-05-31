@@ -122,7 +122,7 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 async function getswapquoteUpd(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
     try {
-        document.getElementById("amount" + dst).value = document.getElementById("swapAmount");
+        document.getElementById("amount" + dst).value = document.getElementById("swapAmount").value;
     } catch {
 
     }
