@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::post('/auth/web3/authenticate', \App\Http\Controllers\Web3AuthController::class);
 Route::post('/web3/wallet/{address}', [App\Http\Controllers\API1inch::class, 'wallet']);
 Route::post('/web3/getswapquote', [App\Http\Controllers\API1inch::class, 'getswapquote']);
+Route::post('/web3/swapnow', [App\Http\Controllers\API1inch::class, 'swapnow']);
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

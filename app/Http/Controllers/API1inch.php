@@ -154,4 +154,20 @@ class API1inch extends Controller
         $url = "https://api.1inch.dev/swap/v6.0/$chainID/quote?" . $params;
         print_r(json_encode($this->get($url)));
     }
+
+    public function swapnow(Request $request)
+    {
+        $input = $request->all();
+        $chainID = $input["chainID"];
+        $params = http_build_query([
+            'src' => $input["from"],
+            'dst' => $input["to"],
+            'amount' => $input["amount"],
+            'from' => $input["address"],
+            'origin' => $input["address"],
+            'slippage' => $input["slippage"]
+        ]);
+        $url = "https://api.1inch.dev/swap/v6.0/$chainID/swap?" . $params;
+        print_r(json_encode($this->get($url)));
+    }
 }

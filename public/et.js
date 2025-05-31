@@ -116,6 +116,38 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     console.log(data);
 }
 
+
+
+async function swapnow() {
+    val = 0;
+    var decimals = 18;
+    if (typeof alldata[dst]['decimals'] != 'undefined') {
+        decimals = alldata[dst]['decimals'];
+    }
+    let url = '/web3/swapnow';
+    let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            from: src.trim(),
+            to: dst.trim(),
+            chainID: 1,
+            amount: toWei(val, decimals),
+            from: eth_address,
+            origin: eth_address,
+            slippage: 10,
+            _token: csrf_token
+        })
+    });
+
+    let data = await response.json();
+  
+    console.log(data);
+}
+
 async function getswapquoteUpd(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
     try {
         document.getElementById("amount" + dst).value = document.getElementById("swapAmount").value;
