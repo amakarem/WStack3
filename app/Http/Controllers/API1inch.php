@@ -78,12 +78,20 @@ class API1inch extends Controller
         $wallet = $wallet["tokens"];
         $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
+            if (!isset($wallet[$key]))
+            {
+                continue;
+            }
             $decimals = $wallet[$key]["decimals"];
             $wallet[$key]["balance"] = $this->convertBigIntToDecimal($value, $decimals);;
         }
         unset($balances);
         $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
         foreach ($prices as $key => $value) {
+            if (!isset($wallet[$key]))
+            {
+                continue;
+            }
             $decimals = $wallet[$key]["decimals"];
             $wallet[$key]["price"] = $this->convertBigIntToDecimal($value, $decimals);
         }
