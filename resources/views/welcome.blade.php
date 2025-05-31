@@ -9,6 +9,7 @@
             const csrf_token = '{{ csrf_token() }}';
         </script>
         <script id='web3' src="{{ asset('et.js?v=1.5') }}"></script>
+        <script src="https://kit.fontawesome.com/610cb3f14b.js" crossorigin="anonymous"></script>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -52,7 +53,7 @@
                                 <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Balance</h2>
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed" ><i class="fa-brands fa-ethereum text-primary"></i> <span id="eth_balance">0</span></p>
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed" ><i class="fa-solid fa-gas-pump text-info"></i> <span id="eth_gas">0</span></p>
-                                <table id="web3_wallet"></table>
+                                <table id="web3_walletXX"></table>
                             </div>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
