@@ -102,6 +102,7 @@ class API1inch extends Controller
                 unset($wallet["decimals"]);
                 unset($wallet["eip2612"]);
                 unset($wallet["tags"]);
+                $wallet["address"] = trim(str_replace(" ", "", $wallet["address"]));
             }
         }
         print_r(json_encode($wallet));
