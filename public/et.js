@@ -43,6 +43,7 @@ async function initWeb3() {
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
     if (typeof eth_address == 'string') {
+        console.log("connected");
         let oldBalance = Balance;
         let oldGas = GasPrice;
         let accountKey = accounts.findIndex(item => eth_address.toLowerCase() === item.toLowerCase());
