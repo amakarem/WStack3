@@ -8,7 +8,7 @@
         }
       </style>
       <!-- Modal -->
-      <div class="modal fade" id="swapsearch" tabindex="-1" aria-labelledby="swapsearchLabel" aria-hidden="true" {!! $dir !!}>
+      <div class="modal fade" id="swapsearch" tabindex="-1" aria-labelledby="swapsearchLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header align-unset">
