@@ -25,6 +25,7 @@
         </style>
     </head>
     <body id="app">
+        <main class="py-4">
         <div class="container">
 
             <div class="row justify-content-center">
@@ -107,5 +108,6 @@
     </div>
   </div>
 </div>
+        </main>
     </body>
 </html>
