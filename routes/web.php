@@ -18,14 +18,6 @@ Route::get('/', function () {
 });
 Route::post('/auth/web3/authenticate', \App\Http\Controllers\Web3AuthController::class);
 
-Route::get('/dashboard', function () {
-    return view('welcome');
-});
-Route::get('/home', function () {
-    return view('welcome');
-});
-
-
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
@@ -33,3 +25,4 @@ Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
