@@ -100,7 +100,6 @@ class API1inch extends Controller
         foreach ($wallet as $key => $value) {
             if (!isset($value["price"]) || $value["price"] == 0) {
                 unset($wallet[$key]);
-                echo "removing $key \n";
             } else {
                 unset($wallet["decimals"]);
                 unset($wallet["eip2612"]);
