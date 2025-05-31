@@ -39,24 +39,37 @@ async function eth_refresh() {
     }, 10000);
 }
 
-async function getall(id)
-{
-    let url = '/web3/wallet/' + id;
-    let response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            address: id,
-            _token: csrf_token
-        })
-    });
+async function getall(id) {
+    if (document.getElementById("web3_wallet_1inch")) {
+        let url = '/web3/wallet/' + id;
+        let response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                address: id,
+                _token: csrf_token
+            })
+        });
 
-    let data = await response.json();
-    console.log(data);
-    return data;
+        let data = await response.json();
+        // console.log(data);
+        for (const address in data) {
+            if (data.hasOwnProperty(address)) {
+                const token = data[address];
+                document.getElementById("web3_wallet_1inch").innerHTML = '<tr><th>' + token.symbol + '</th><td class=""><img class="ico" src="' + token.logoURI + '"> ' + token.balance + '</td><td class="">' + token.price + '</td></tr>';
+                // console.log("Address:", token.address);
+                // console.log("Symbol:", token.symbol);
+                // console.log("Name:", token.name);
+                // console.log("Balance:", token.balance);
+                // console.log("Price:", token.price);
+                // console.log("---");
+            }
+        }
+        return data;
+    }
 }
 
 async function initWeb3() {
