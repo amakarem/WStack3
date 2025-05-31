@@ -39,6 +39,25 @@ async function eth_refresh() {
     }, 10000);
 }
 
+async function getall(id)
+{
+    let url = '/web3/wallet/' + id;
+    let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            address: id,
+            _token: csrf_token
+        })
+    });
+
+    let data = await response.json();
+    console.log(data);
+}
+
 async function initWeb3() {
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
