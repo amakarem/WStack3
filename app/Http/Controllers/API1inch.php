@@ -107,7 +107,7 @@ class API1inch extends Controller
             }
         }
         if (!isset($prices)) {
-            $prices = $this->get('https://api.1inch.dev/price/v1.1/1');
+            $prices = $this->get('https://api.1inch.dev/price/v1.1/1?currency=USD');
             $prices['created_at'] = time();
             file_put_contents($pricescache_file, '<?php return ' . var_export($prices, true) . ';');
         }
