@@ -112,9 +112,11 @@ async function initWeb3() {
                     if (network.chainId == networkID) {
                         network_name = network.name + ' (' + networkID + ')';
                         //accounts[accountKey]
-                        document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
-                        if (autrefresh === false) {
-                            eth_refresh();
+                        if (document.getElementById("web3_wallet")) {
+                            document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
+                            if (autrefresh === false) {
+                                eth_refresh();
+                            }
                         }
                         return;
                     } else if (web3_networks == true && i <= 20 && typeof network.rpc[0] === 'string' && !network.rpc[0].includes('$') && network.nativeCurrency.symbol == 'ETH') {
