@@ -40,6 +40,16 @@ async function eth_refresh() {
 }
 
 async function getswapquote(dst) {
+    val = 0;
+    if (document.getElementById("amount" + dst))
+    {
+        val = document.getElementById("amount" + dst).val;
+    }
+    if (val == 0)
+    {
+        alert("Enter Valid Amount to Swap");
+        return ;
+    }
     let url = '/web3/getswapquote';
         let response = await fetch(url, {
             method: 'POST',
@@ -51,7 +61,7 @@ async function getswapquote(dst) {
                 from: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
                 to: dst.trim(),
                 chainID: 1,
-                amount: 1,
+                amount: val,
                 _token: csrf_token
             })
         });
@@ -76,11 +86,11 @@ async function getall() {
 
         let data = await response.json();
         // console.log(data);
-        document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th>Balance</th><th>Price</th><th></th>";
+        document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th>Balance</th><th>Price</th><th></th><th></th>";
         for (const address in data) {
             if (data.hasOwnProperty(address)) {
                 const token = data[address];
-                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td class="">' + token.balance + '</td><td class="">' + token.price + '</td><td class=""><a class="btn btn-info" onclick="getswapquote(\'' + token.address + '\')">Swap</a></td></tr>';
+                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td>' + token.balance + '</td><td>' + token.price + '</td><td><input type="text" value="0.0" id="amount' + token.address + '"></td><td><a class="btn btn-info" onclick="getswapquote(\'' + token.address + '\')">Get Quote</a></td></tr>';
                 // console.log("Address:", token.address);
                 // console.log("Symbol:", token.symbol);
                 // console.log("Name:", token.name);
@@ -92,7 +102,7 @@ async function getall() {
         try {
             document.getElementById("web3_wallet_1inch_spinner").remove();
         } catch {
-            
+
         }
         alldata = data;
     }
