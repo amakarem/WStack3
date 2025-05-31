@@ -74,7 +74,7 @@ class API1inch extends Controller
     public function wallet($address)
     {
         header("Content-Type: application/json");
-        $wallet = $this->get('https://api.1inch.dev/swap/v5.2/1/tokens');
+        $wallet = $this->get('https://api.1inch.dev/swap/v6.0/1/tokens');
         $wallet = $wallet["tokens"];
         $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
