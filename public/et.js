@@ -110,6 +110,7 @@ async function initWeb3() {
                 i = 0;
                 chains.forEach((network) => {
                     if (network.chainId == networkID) {
+                        network_name = network.name + ' (' + networkID + ')';
                         //accounts[accountKey]
                         document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
                         if (autrefresh === false) {
@@ -124,6 +125,9 @@ async function initWeb3() {
                         return;
                     }
                 });
+            }
+            if (document.getElementById("eth_chain") && typeof network_name != 'undefined') {
+                document.getElementById("eth_chain").innerHTML = network_name;
             }
             if (document.getElementById("eth_balance")) {
                 document.getElementById("eth_balance").innerHTML = Balance;
