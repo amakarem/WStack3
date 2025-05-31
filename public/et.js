@@ -47,7 +47,12 @@ async function initWeb3() {
         console.log("detected");
     }
     if (typeof eth_address == 'string') {
-        console.log("connected");
+        try {
+            let loginbtn = document.getElementById("web3login");
+            loginbtn.innerHTML = "Disconnect";
+        } catch (err) {
+            console.log(err.message);
+        }
         let oldBalance = Balance;
         let oldGas = GasPrice;
         let accountKey = accounts.findIndex(item => eth_address.toLowerCase() === item.toLowerCase());
@@ -92,6 +97,8 @@ async function initWeb3() {
             }
         } else {
             try {
+                let loginbtn = document.getElementById("web3login");
+                loginbtn.innerHTML = "Connect Wallet";
                 document.getElementById('logout-form').submit();
             } catch (err) {
                 console.log(err.message);
@@ -148,12 +155,13 @@ async function loginWeb3() {
     const redirectUrl = '/';
 
     const message = "Please sign me in to (https://eth.onyxberg.us).";
+    const hexMessage = web3.utils.utf8ToHex(message);
 
     const address = (await web3.eth.requestAccounts())[0];
 
     const signature = await window.ethereum.request({
         method: 'personal_sign',
-        params: [message, address],
+        params: [hexMessage, address],
     });
 
     const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
