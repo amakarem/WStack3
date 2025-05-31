@@ -13,7 +13,7 @@ try {
     console.log(err.message);
 }
 var alldata;
-var swaporder;
+
 if (window.ethereum) {
     var Balance = 0;
     var GasPrice = 0;
@@ -57,7 +57,7 @@ function fromWei(wei, decimals = 18) {
     return fractionStr.length > 0 ? `${whole}.${fractionStr}` : whole.toString();
 }
 
-async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', openModal = true) {
     val = 0;
     var decimals = 18;
     if (document.getElementById("amount" + dst)) {
@@ -70,16 +70,12 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     if (typeof alldata[dst]['decimals'] != 'undefined') {
         decimals = alldata[dst]['decimals'];
     }
-    swaporder = JSON.stringify({
-        from: src.trim(),
-        to: dst.trim(),
-        chainID: 1,
-        amount: toWei(val, decimals),
-    });
 
-    const modal = new bootstrap.Modal(document.getElementById('swapquoteModalToggle2'));
-    modal.show();
-    console.log(swaporder);
+    if (openModal)
+    {
+        const modal = new bootstrap.Modal(document.getElementById('swapquoteModalToggle2'));
+        modal.show();
+    }
     let url = '/web3/getswapquote';
     let response = await fetch(url, {
         method: 'POST',
@@ -126,7 +122,7 @@ async function getswapquoteUpd(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     } catch {
 
     }
-    getswapquote(dst, src);
+    getswapquote(dst, src, false);
 }
 
 async function getall() {
