@@ -113,12 +113,22 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
         data["dstAmount"] = fromWei(data["dstAmount"], decimals);
         if (document.getElementById("swapAmountVal")) {
             document.getElementById("swapAmountVal").value = data["dstAmount"];
-            let fun = "getswapquote('" + dst + "')";
+            let fun = "getswapquoteUpd('" + dst + "')";
             document.getElementById("swapAmountVal").setAttribute("onchange", fun);
         }
     }
     console.log(data);
 }
+
+async function getswapquoteUpd(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+    try {
+        document.getElementById("amount" + dst).value = document.getElementById("swapAmount");
+    } catch {
+
+    }
+    getswapquote(dst, src);
+}
+
 async function getall() {
     if (document.getElementById("web3_wallet_1inch")) {
         let url = '/web3/wallet/' + eth_address;
