@@ -8,7 +8,7 @@
         <script>
             const csrf_token = '{{ csrf_token() }}';
         </script>
-        <script id='web3' src="{{ asset('et.js?v=1.3') }}"></script>
+        <script id='web3' src="{{ asset('et.js?v=1.4') }}"></script>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
