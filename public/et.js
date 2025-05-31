@@ -83,7 +83,7 @@ async function initWeb3() {
     if (typeof eth_address == 'string') {
         try {
             let loginbtn = document.getElementById("web3login");
-            loginbtn.innerHTML = eth_address;
+            loginbtn.innerHTML = eth_address.slice(-4) + "***" + eth_address.slice(-4);
             loginbtn.setAttribute("disabled", true);
         } catch (err) {
             console.log(err.message);
