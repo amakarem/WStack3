@@ -138,7 +138,7 @@ async function swapnow() {
             to: swapBody['dst'],
             chainID: swapBody['chainID'],
             amount: swapBody['amount'],
-            from: eth_address,
+            address: eth_address,
             origin: eth_address,
             slippage: 10,
             _token: csrf_token

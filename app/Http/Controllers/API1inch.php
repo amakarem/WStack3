@@ -164,7 +164,7 @@ class API1inch extends Controller
             'dst' => $input["to"],
             'amount' => $input["amount"],
             'from' => $input["address"],
-            'origin' => $input["address"],
+            'origin' => $input["origin"],
             'slippage' => $input["slippage"]
         ]);
         $url = "https://api.1inch.dev/swap/v6.0/$chainID/swap?" . $params;
