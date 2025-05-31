@@ -56,9 +56,9 @@ function fromWei(wei, decimals = 18) {
 
     return fractionStr.length > 0 ? `${whole}.${fractionStr}` : whole.toString();
 }
-var swapBody = [];
+var swapBody = {};
 async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', openModal = true) {
-    swapBody = [];
+    swapBody = {};
     val = 0;
     var decimals = 18;
     if (document.getElementById("amount" + dst)) {
@@ -92,12 +92,12 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
         })
     });
 
-    swapBody = JSON.stringify({
+    swapBody = {
         from: src.trim(),
         to: dst.trim(),
         chainID: 1,
         amount: toWei(val, decimals),
-    });
+    };
 
     let data = await response.json();
     if (typeof data["description"] != 'undefined') {
