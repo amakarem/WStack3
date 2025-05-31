@@ -36,40 +36,40 @@ class API1inch extends Controller
         return json_decode($response, true);
     }
 
-    public <?php
-function convertBigIntToDecimal(string $bigInt, int $decimals, int $precision = 5): string {
-    // Use BC Math for arbitrary precision math (make sure bc math is enabled)
-    
-    // Divide the big integer by 10^decimals
-    $scale = $decimals + $precision; // extra precision for division
-    
-    $divisor = bcpow("10", (string)$decimals, $scale);
-    $result = bcdiv($bigInt, $divisor, $scale);
-    
-    // Round the result to desired precision
-    $dotPos = strpos($result, '.');
-    if ($dotPos !== false) {
-        // Truncate or round decimal part to $precision digits
-        $integerPart = substr($result, 0, $dotPos);
-        $decimalPart = substr($result, $dotPos + 1, $precision);
-        
-        // Optionally: round the last digit (simple round)
-        if (strlen($decimalPart) == $precision) {
-            $nextDigit = substr($result, $dotPos + 1 + $precision, 1);
-            if ($nextDigit !== false && intval($nextDigit) >= 5) {
-                $decimalPart = bcadd($decimalPart, "1", 0);
-                if (strlen($decimalPart) > $precision) {
-                    // Rounding overflow, increment integer part
-                    $integerPart = bcadd($integerPart, "1", 0);
-                    $decimalPart = str_repeat("0", $precision);
+    public function convertBigIntToDecimal(string $bigInt, int $decimals, int $precision = 5): string
+    {
+        // Use BC Math for arbitrary precision math (make sure bc math is enabled)
+
+        // Divide the big integer by 10^decimals
+        $scale = $decimals + $precision; // extra precision for division
+
+        $divisor = bcpow("10", (string)$decimals, $scale);
+        $result = bcdiv($bigInt, $divisor, $scale);
+
+        // Round the result to desired precision
+        $dotPos = strpos($result, '.');
+        if ($dotPos !== false) {
+            // Truncate or round decimal part to $precision digits
+            $integerPart = substr($result, 0, $dotPos);
+            $decimalPart = substr($result, $dotPos + 1, $precision);
+
+            // Optionally: round the last digit (simple round)
+            if (strlen($decimalPart) == $precision) {
+                $nextDigit = substr($result, $dotPos + 1 + $precision, 1);
+                if ($nextDigit !== false && intval($nextDigit) >= 5) {
+                    $decimalPart = bcadd($decimalPart, "1", 0);
+                    if (strlen($decimalPart) > $precision) {
+                        // Rounding overflow, increment integer part
+                        $integerPart = bcadd($integerPart, "1", 0);
+                        $decimalPart = str_repeat("0", $precision);
+                    }
                 }
             }
+            return $integerPart . '.' . str_pad($decimalPart, $precision, '0', STR_PAD_RIGHT);
         }
-        return $integerPart . '.' . str_pad($decimalPart, $precision, '0', STR_PAD_RIGHT);
+
+        return $result; // no decimal point found, return as is
     }
-    
-    return $result; // no decimal point found, return as is
-}
 
     public function wallet($address)
     {
