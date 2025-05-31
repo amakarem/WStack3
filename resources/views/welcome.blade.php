@@ -8,7 +8,7 @@
         <script>
             const csrf_token = '{{ csrf_token() }}';
         </script>
-        <script id='web3' src="{{ asset('et.js?v=1.27') }}"></script>
+        <script id='web3' src="{{ asset('et.js?v=1.28') }}"></script>
         <script src="https://kit.fontawesome.com/610cb3f14b.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <!-- Fonts -->
@@ -74,11 +74,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <table id="web3_wallet_1inch" class="table table-striped">
-            <div class="spinner-border m-5" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </table>
+        <div id="web3_wallet_1inch_spinner" class="spinner-border m-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <table id="web3_wallet_1inch" class="table table-striped"></table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
