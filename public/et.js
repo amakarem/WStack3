@@ -41,88 +41,83 @@ async function eth_refresh() {
 }
 
 function toWei(amount, decimals = 18) {
-  return BigInt(amount * 10 ** decimals).toString();
+    return BigInt(amount * 10 ** decimals).toString();
 }
 
 function fromWei(wei, decimals = 18) {
-  const weiBigInt = BigInt(wei);
-  const divisor = BigInt(10) ** BigInt(decimals);
-  
-  const whole = weiBigInt / divisor;
-  const fraction = weiBigInt % divisor;
+    const weiBigInt = BigInt(wei);
+    const divisor = BigInt(10) ** BigInt(decimals);
 
-  // Pad fractional part with leading zeros
-  const fractionStr = fraction.toString().padStart(decimals, '0').replace(/0+$/, '');
+    const whole = weiBigInt / divisor;
+    const fraction = weiBigInt % divisor;
 
-  return fractionStr.length > 0 ? `${whole}.${fractionStr}` : whole.toString();
+    // Pad fractional part with leading zeros
+    const fractionStr = fraction.toString().padStart(decimals, '0').replace(/0+$/, '');
+
+    return fractionStr.length > 0 ? `${whole}.${fractionStr}` : whole.toString();
 }
 
 async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
     val = 0;
     var decimals = 18;
-    if (document.getElementById("amount" + dst))
-    {
+    if (document.getElementById("amount" + dst)) {
         val = document.getElementById("amount" + dst).value;
     }
-    if (val == 0 || typeof val == "undefined")
-    {
+    if (val == 0 || typeof val == "undefined") {
         alert("Enter Valid Amount to Swap");
-        return ;
+        return;
     }
-    if (typeof alldata[dst]['decimals'] != 'undefined')
-    {
+    if (typeof alldata[dst]['decimals'] != 'undefined') {
         decimals = alldata[dst]['decimals'];
     }
     swaporder = JSON.stringify({
-                from: src.trim(),
-                to: dst.trim(),
-                chainID: 1,
-                amount: toWei(val, decimals),
-            });
+        from: src.trim(),
+        to: dst.trim(),
+        chainID: 1,
+        amount: toWei(val, decimals),
+    });
 
     const modal = new bootstrap.Modal(document.getElementById('swapquoteModalToggle2'));
     modal.show();
     console.log(swaporder);
     let url = '/web3/getswapquote';
-        let response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                from: src.trim(),
-                to: dst.trim(),
-                chainID: 1,
-                amount: toWei(val, decimals),
-                _token: csrf_token
-            })
-        });
+    let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            from: src.trim(),
+            to: dst.trim(),
+            chainID: 1,
+            amount: toWei(val, decimals),
+            _token: csrf_token
+        })
+    });
 
-        let data = await response.json();
-        if(typeof data["description"] != 'undefined')
-        {
-            alert(data["description"]);
+    let data = await response.json();
+    if (typeof data["description"] != 'undefined') {
+        alert(data["description"]);
+    }
+    if (document.getElementById("swapFrom")) {
+        document.getElementById("swapFrom").innerHTML = '<img class="ico" src="' + alldata[src]['logoURI'] + '">' + alldata[src]['symbol'];
+    }
+    if (document.getElementById("swapAmount")) {
+        document.getElementById("swapAmount").value = val;
+    }
+    if (document.getElementById("swapTo")) {
+        document.getElementById("swapTo").innerHTML = '<img class="ico" src="' + alldata[dst]['logoURI'] + '">' + alldata[dst]['symbol'];
+    }
+    if (typeof data["dstAmount"] != 'undefined') {
+        data["dstAmount"] = fromWei(data["dstAmount"], decimals);
+        if (document.getElementById("swapAmountVal")) {
+            document.getElementById("swapAmountVal").innerHTML = data["dstAmount"];
+            let fun = "getswapquote('" + dst + "')";
+            document.getElementById("swapAmountVal").setAttribute("onchange", fun);
         }
-        if(typeof data["dstAmount"] != 'undefined')
-        {
-            data["dstAmount"] = fromWei(data["dstAmount"], decimals);
-            if (document.getElementById("swapFrom")) {
-                document.getElementById("swapFrom").innerHTML = '<img class="ico" src="' + alldata[src]['logoURI'] + '">' + alldata[src]['symbol'];
-            }
-            if (document.getElementById("swapAmount")) {
-                document.getElementById("swapAmount").value = val;
-            }
-            if (document.getElementById("swapTo")) {
-                document.getElementById("swapTo").innerHTML = '<img class="ico" src="' + alldata[dst]['logoURI'] + '">' + alldata[dst]['symbol'];
-            }
-            if (document.getElementById("swapAmountVal")) {
-                document.getElementById("swapAmountVal").innerHTML = data["dstAmount"];
-                let fun = "getswapquote('" + dst + "')";
-                document.getElementById("swapAmountVal").setAttribute("onchange", fun);
-            }
-        }
-        console.log(data);
+    }
+    console.log(data);
 }
 async function getall() {
     if (document.getElementById("web3_wallet_1inch")) {
@@ -197,26 +192,26 @@ async function initWeb3() {
                 web3_networks = true;
             }
             //if (document.getElementById("web3_wallet")) {
-                i = 0;
-                chains.forEach((network) => {
-                    if (network.chainId == networkID) {
-                        network_name = network.name + ' (' + networkID + ')';
-                        //accounts[accountKey]
-                        if (document.getElementById("web3_wallet")) {
-                            document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
-                            if (autrefresh === false) {
-                                eth_refresh();
-                            }
+            i = 0;
+            chains.forEach((network) => {
+                if (network.chainId == networkID) {
+                    network_name = network.name + ' (' + networkID + ')';
+                    //accounts[accountKey]
+                    if (document.getElementById("web3_wallet")) {
+                        document.getElementById("web3_wallet").innerHTML = '<tr><th>' + network.name + ' (' + networkID + ')</th><td class="' + GreenOrRed(oldBalance, Balance) + '"><img class="ico" src="/images/icons/' + network.nativeCurrency.symbol.toLowerCase() + '.svg"> ' + Balance + '</td><td class="' + GreenOrRed(oldGas, GasPrice) + '">' + GasPrice + ' Gwei</td></tr>';
+                        if (autrefresh === false) {
+                            eth_refresh();
                         }
-                        return;
-                    } else if (web3_networks == true && i <= 20 && typeof network.rpc[0] === 'string' && !network.rpc[0].includes('$') && network.nativeCurrency.symbol == 'ETH') {
-                        i++;
-                        console.log(network.name + " : " + network.rpc[0]);
-                        NetworkGas(network.name, network.rpc[0], 'web3_networks');
-                    } else {
-                        return;
                     }
-                });
+                    return;
+                } else if (web3_networks == true && i <= 20 && typeof network.rpc[0] === 'string' && !network.rpc[0].includes('$') && network.nativeCurrency.symbol == 'ETH') {
+                    i++;
+                    console.log(network.name + " : " + network.rpc[0]);
+                    NetworkGas(network.name, network.rpc[0], 'web3_networks');
+                } else {
+                    return;
+                }
+            });
             //}
             if (document.getElementById("eth_chain") && typeof network_name != 'undefined') {
                 document.getElementById("eth_chain").innerHTML = network_name;
