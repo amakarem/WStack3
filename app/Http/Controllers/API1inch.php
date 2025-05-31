@@ -3,26 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class MainController extends Controller
+class API1inch extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     private $api_key;
     public function __construct()
     {
         $this->api_key = 'KikRlBQi8QbcbbV09wnZZ2PPa5UsyCA2';
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function get($url)
     {
         $curl = curl_init();
@@ -47,11 +36,11 @@ class MainController extends Controller
         return json_decode($response, true);
     }
 
-    public function wallet(Request $request)
+    public function wallet($address)
     {
         header("Content-Type: application/json");
         $wallet = get('https://api.1inch.dev/swap/v5.2/1/tokens');
-        $balances = get('https://api.1inch.dev/balance/v1.2/1/balances/0xB00554B62F8830533CCAD1112479b0f95BD8fB20');
+        $balances = get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
         foreach ($balances as $key => $value) {
             $wallet["tokens"][$key]["balance"] = $value;
         }
