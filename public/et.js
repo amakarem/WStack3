@@ -118,6 +118,8 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
             }
             if (document.getElementById("swapAmountVal")) {
                 document.getElementById("swapAmountVal").innerHTML = data["dstAmount"];
+                let fun = "getswapquote('" + dst + "')";
+                document.getElementById("swapAmountVal").setAttribute("onchange", fun);
             }
         }
         console.log(data);
