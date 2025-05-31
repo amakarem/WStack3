@@ -51,6 +51,17 @@ class API1inch extends Controller
             $wallet[$key]["price"] = $value;
         }
         unset($prices);
+        //clean up unused data
+        foreach ($wallet as $key => $value) {
+            if (!isset($value["price"]) || $value["price"] == 0) {
+                unset($wallet[$key]);
+                echo "removing $key \n";
+            } else {
+                unset($wallet["decimals"]);
+                unset($wallet["eip2612"]);
+                unset($wallet["tags"]);
+            }
+        }
         print_r(json_encode($wallet));
     }
 }
