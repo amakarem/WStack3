@@ -56,8 +56,9 @@ function fromWei(wei, decimals = 18) {
 
     return fractionStr.length > 0 ? `${whole}.${fractionStr}` : whole.toString();
 }
-
+var swapBody = [];
 async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', openModal = true) {
+    swapBody = [];
     val = 0;
     var decimals = 18;
     if (document.getElementById("amount" + dst)) {
@@ -71,8 +72,7 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
         decimals = alldata[dst]['decimals'];
     }
 
-    if (openModal)
-    {
+    if (openModal) {
         const modal = new bootstrap.Modal(document.getElementById('swapquoteModalToggle2'));
         modal.show();
     }
@@ -90,6 +90,13 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
             amount: toWei(val, decimals),
             _token: csrf_token
         })
+    });
+
+    swapBody = JSON.stringify({
+        from: src.trim(),
+        to: dst.trim(),
+        chainID: 1,
+        amount: toWei(val, decimals),
     });
 
     let data = await response.json();
@@ -132,10 +139,10 @@ async function swapnow() {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            from: src.trim(),
-            to: dst.trim(),
-            chainID: 1,
-            amount: toWei(val, decimals),
+            from: swapBody['src'],
+            to: swapBody['dst'],
+            chainID: swapBody['chainID'],
+            amount: swapBody['amount'],
             from: eth_address,
             origin: eth_address,
             slippage: 10,
@@ -144,7 +151,7 @@ async function swapnow() {
     });
 
     let data = await response.json();
-  
+
     console.log(data);
 }
 
