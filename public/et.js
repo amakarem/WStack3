@@ -40,14 +40,74 @@ async function eth_refresh() {
 }
 
 
-function LoadswapsearchModal() {
-  if (document.getElementById("swapsearchModal-body") === null) {
+function search(input) {
+  input = input.value;
+  if (input.length < 3) {
+    return false;
+  }
+  let URL = '/search/' + input;
+  if (document.getElementById('localmarket') !== null && document.getElementById('localmarket').checked == true && typeof exchange !== 'undefined') {
+    URL = URL + "?exchange=" + exchange;
+  }
+  let textClass = 'text-end';
+  if (language.indexOf('ar') >= 0) {
+    textClass = 'text-start';
+  }
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var container = document.getElementById("swapsearchModal-result");
+      container.innerHTML = '';
+      let result = JSON.parse(this.responseText);
+      if (result.length < 1) {
+        container.innerHTML = '<p class="text-center">' + trans('No symbols match your criteria') + '</p>';
+      } else {
+        let i = 0;
+        Object.keys(result).forEach(function (key) {
+          i++;
+          let row = document.createElement("div");
+          let link = document.createElement("a");
+          link.setAttribute('class', 'nav-link');
+        
+          row.setAttribute('class', 'row border-bottom p-2');
+          if (i == result.length) {
+            row.setAttribute('class', 'row p-2');
+          }
+          let col1 = document.createElement("div");
+          col1.innerHTML = '<strong>' + result[key].symbol + '</strong>';
+          col1.setAttribute('class', 'col col-xs-3 col-sm-3');
+          let col2 = document.createElement("div");
+          col2.setAttribute('class', 'col col-xs-5 col-sm-5');
+          col2.innerHTML = result[key].price;
+          let col3 = document.createElement("div");
+          col3.setAttribute('class', 'col col-xs-4 col-sm-4 ' + textClass);
+          let icon = '<img class="ico" src="' + result[key].logoURI + '">';
+
+          col3.innerHTML = result[key].name + " " + result[key].balance + icon + favbtn;
+          row.appendChild(col1);
+          row.appendChild(col2);
+          row.appendChild(col3);
+          link.appendChild(row);
+          container.appendChild(link);
+        });
+      }
+    } else {
+      return false;
+    }
+  };
+  xhttp.open("GET", URL);
+  xhttp.send();
+}
+
+
+function LoadswapswapsearchModal() {
+  if (document.getElementById("swapswapsearchModal-body") === null) {
     let URL = '/modal/swap/';
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         LoadModal(this.responseText);
-        let myModal = new bootstrap.Modal(document.getElementById('swapsearchModal'));
+        let myModal = new bootstrap.Modal(document.getElementById('swapswapsearchModal'));
         if (document.getElementById('localmarket-Label') !== null) {
           if (typeof exchange !== 'undefined') {
             document.getElementById('localmarket-Label').innerHTML = exchange;
@@ -69,8 +129,8 @@ function LoadswapsearchModal() {
     xhttp.open("GET", URL);
     xhttp.send();
   } else {
-    document.getElementById("swapsearchModal-result").innerHTML = '';
-    let myModal = new bootstrap.Modal(document.getElementById('swapsearchModal'));
+    document.getElementById("swapswapsearchModal-result").innerHTML = '';
+    let myModal = new bootstrap.Modal(document.getElementById('swapswapsearchModal'));
     myModal.toggle();
   }
 }
