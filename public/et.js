@@ -45,6 +45,7 @@ async function initWeb3() {
     if (typeof accounts == 'object')
     {
         eth_address = accounts[0];
+        console.log("detected");
     }
     if (typeof eth_address == 'string') {
         console.log("connected");
