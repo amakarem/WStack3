@@ -96,10 +96,10 @@ class API1inch extends Controller
         unset($prices);
         //clean up unused data
         foreach ($wallet as $key => $value) {
-            if (!isset($value["price"]) || $value["price"] == 0) {
+            if (!isset($value["price"]) || $value["price"] === 0) {
                 unset($wallet[$key]);
             } else if (!isset($value["tags"]["crosschain"])) {
-                unset($wallet[$key]);
+                //unset($wallet[$key]);
             } else {
                 unset($wallet[$key]["decimals"]);
                 unset($wallet[$key]["eip2612"]);
