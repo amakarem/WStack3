@@ -136,7 +136,7 @@ class API1inch extends Controller
         usort($wallet, function($a, $b) {
             return $b['balance'] <=> $a['balance'];
         });
-        $wallet = array_slice($wallet, 0, 30);
+        $wallet = array_slice($wallet, 0, 30, true);
         print_r(json_encode($wallet));
     }
 
