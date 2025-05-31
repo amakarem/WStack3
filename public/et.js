@@ -39,8 +39,13 @@ async function eth_refresh() {
     }, 10000);
 }
 
+function toWei(amount, decimals = 18) {
+  return BigInt(amount * 10 ** decimals).toString();
+}
+
 async function getswapquote(dst) {
     val = 0;
+    var decimals = 18;
     if (document.getElementById("amount" + dst))
     {
         val = document.getElementById("amount" + dst).value;
@@ -49,6 +54,10 @@ async function getswapquote(dst) {
     {
         alert("Enter Valid Amount to Swap");
         return ;
+    }
+    if (typeof alldata[dst]['decimals'] != 'undefined')
+    {
+        decimals = alldata[dst]['decimals'];
     }
     let url = '/web3/getswapquote';
         let response = await fetch(url, {
@@ -61,7 +70,7 @@ async function getswapquote(dst) {
                 from: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
                 to: dst.trim(),
                 chainID: 1,
-                amount: val,
+                amount: toWei(val, decimals),
                 _token: csrf_token
             })
         });
