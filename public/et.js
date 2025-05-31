@@ -105,6 +105,8 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     }
     if (document.getElementById("swapAmount")) {
         document.getElementById("swapAmount").value = val;
+        let fun = "getswapquoteUpd('" + dst + "')";
+        document.getElementById("swapAmount").setAttribute("onchange", fun);
     }
     if (document.getElementById("swapTo")) {
         document.getElementById("swapTo").innerHTML = '<img class="ico" src="' + alldata[dst]['logoURI'] + '">' + alldata[dst]['symbol'];
@@ -113,8 +115,6 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
         data["dstAmount"] = fromWei(data["dstAmount"], decimals);
         if (document.getElementById("swapAmountVal")) {
             document.getElementById("swapAmountVal").value = data["dstAmount"];
-            let fun = "getswapquoteUpd('" + dst + "')";
-            document.getElementById("swapAmountVal").setAttribute("onchange", fun);
         }
     }
     console.log(data);
