@@ -8,7 +8,7 @@
         <script>
             const csrf_token = '{{ csrf_token() }}';
         </script>
-        <script id='web3' src="{{ asset('et.js?v=1.52') }}"></script>
+        <script id='web3' src="{{ asset('et.js?v=1.53') }}"></script>
         <script src="https://kit.fontawesome.com/610cb3f14b.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <!-- Fonts -->
@@ -80,6 +80,7 @@
         <table id="web3_wallet_1inch" class="table table-striped"></table>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="getall(true)">Load all tokens</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

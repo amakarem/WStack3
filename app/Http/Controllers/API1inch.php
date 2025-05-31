@@ -133,10 +133,12 @@ class API1inch extends Controller
                 $wallet[$key]["address"] = trim(str_replace(" ", "", $wallet[$key]["address"]));
             }
         }
-        uasort($wallet, function($a, $b) {
-            return $b['balance'] <=> $a['balance'];
-        });
-        $wallet = array_slice($wallet, 0, 30, true);
+        if (!isset($_GET["getAll"])) {
+            uasort($wallet, function ($a, $b) {
+                return $b['balance'] <=> $a['balance'];
+            });
+            $wallet = array_slice($wallet, 0, 30, true);
+        }
         print_r(json_encode($wallet));
     }
 
@@ -152,22 +154,4 @@ class API1inch extends Controller
         $url = "https://api.1inch.dev/swap/v6.0/$chainID/quote?" . $params;
         print_r(json_encode($this->get($url)));
     }
-
-
-
-    //     $chainId = 1; // Ethereum Mainnet
-    // $fromToken = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'; // ETH
-    // $toToken = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC
-    // $amount = '1000000000000000000'; // 1 ETH in wei
-    // $fromAddress = '0xYourWalletAddress';
-    // $slippage = 1; // 1%
-    // $apiKey = 'your_1inch_api_key'; // Optional, required for 1inch Pro
-
-    // try {
-    //     $txData = get1inchSwapTx($chainId, $fromToken, $toToken, $amount, $fromAddress, $slippage, $apiKey);
-    //     print_r($txData);
-    // } catch (Exception $e) {
-    //     echo "Error: " . $e->getMessage();
-    // }
-
 }

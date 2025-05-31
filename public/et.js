@@ -125,9 +125,12 @@ async function getswapquoteUpd(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     getswapquote(dst, src, false);
 }
 
-async function getall() {
+async function getall(all = false) {
     if (document.getElementById("web3_wallet_1inch")) {
         let url = '/web3/wallet/' + eth_address;
+        if (all === true) {
+            url = url + "?getAll=true";
+        }
         let response = await fetch(url, {
             method: 'POST',
             headers: {
