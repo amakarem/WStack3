@@ -99,9 +99,9 @@ function search(input) {
   xhttp.send();
 }
 
-async function getall(id = eth_address) {
+async function getall() {
     if (document.getElementById("web3_wallet_1inch")) {
-        let url = '/web3/wallet/' + id;
+        let url = '/web3/wallet/' + eth_address;
         let response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -109,7 +109,7 @@ async function getall(id = eth_address) {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                address: id,
+                address: eth_address,
                 _token: csrf_token
             })
         });
@@ -129,7 +129,7 @@ async function getall(id = eth_address) {
                 // console.log("---");
             }
         }
-        return data;
+        //return data;
     }
 }
 
