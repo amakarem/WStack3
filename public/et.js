@@ -116,7 +116,7 @@ async function getall() {
 
         let data = await response.json();
         // console.log(data);
-        document.getElementById("web3_wallet_1inch").innerHTML = "<thead><th>Token</th><th></th><th>Balance</th><th>Price</th></thead>";
+        document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th></th><th>Balance</th><th>Price</th>";
         for (const address in data) {
             if (data.hasOwnProperty(address)) {
                 const token = data[address];
