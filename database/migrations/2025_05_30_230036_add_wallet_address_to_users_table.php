@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('wallet_address')->unique()->nullable();
+            $table->string('eth_address')->unique()->nullable();
+            $table->string('authtype', 20)->default('web3');
         });
     }
 
