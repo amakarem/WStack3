@@ -56,10 +56,11 @@ async function getall(id) {
 
         let data = await response.json();
         // console.log(data);
+        document.getElementById("web3_wallet_1inch").innerHTML = "";
         for (const address in data) {
             if (data.hasOwnProperty(address)) {
                 const token = data[address];
-                document.getElementById("web3_wallet_1inch").innerHTML = '<tr><th>' + token.symbol + '</th><td class=""><img class="ico" src="' + token.logoURI + '"> ' + token.balance + '</td><td class="">' + token.price + '</td></tr>';
+                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th>' + token.symbol + '</th><td class=""><img class="ico" src="' + token.logoURI + '"> ' + token.balance + '</td><td class="">' + token.price + '</td></tr>';
                 // console.log("Address:", token.address);
                 // console.log("Symbol:", token.symbol);
                 // console.log("Name:", token.name);
