@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/auth/web3/authenticate', \App\Http\Controllers\Web3AuthController::class);
 
+Route::post('/auth/web3/authenticate', \App\Http\Controllers\Web3AuthController::class);
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
