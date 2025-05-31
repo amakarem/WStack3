@@ -83,8 +83,8 @@ async function initWeb3() {
                         return;
                     } else if (web3_networks == true && i <= 20 && typeof network.rpc[0] === 'string' && !network.rpc[0].includes('$') && network.nativeCurrency.symbol == 'ETH') {
                         i++;
-                        //console.log(network.name + " : " + network.rpc[0]);
-                        //NetworkGas(network.name, network.rpc[0], 'web3_networks');
+                        console.log(network.name + " : " + network.rpc[0]);
+                        NetworkGas(network.name, network.rpc[0], 'web3_networks');
                     } else {
                         return;
                     }
