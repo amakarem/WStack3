@@ -12,7 +12,7 @@ try {
 } catch (err) {
     console.log(err.message);
 }
-
+var alldata;
 if (window.ethereum) {
     var Balance = 0;
     var GasPrice = 0;
@@ -116,11 +116,11 @@ async function getall() {
 
         let data = await response.json();
         // console.log(data);
-        document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th>Balance</th><th>Price</th>";
+        document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th>Balance</th><th>Price</th><th></th>";
         for (const address in data) {
             if (data.hasOwnProperty(address)) {
                 const token = data[address];
-                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td class="">' + token.balance + '</td><td class="">' + token.price + '</td></tr>';
+                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td class="">' + token.balance + '</td><td class="">' + token.price + '</td><td class=""><a class="btn" onclick="swap(' + token.address + ')">Swap</a></td></tr>';
                 // console.log("Address:", token.address);
                 // console.log("Symbol:", token.symbol);
                 // console.log("Name:", token.name);
@@ -129,7 +129,7 @@ async function getall() {
                 // console.log("---");
             }
         }
-        //return data;
+        alldata = data;
     }
 }
 
