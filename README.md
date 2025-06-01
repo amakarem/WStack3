@@ -1,4 +1,6 @@
-# 🔐 WStack3 Secure Server-Optimized DeFi Web Application
+![WStack3](public/images/logo.png)
+
+# 🔐 Secure Server-Optimized DeFi Web Application
 
 A secure, high-performance DeFi web application built using **Laravel (PHP)**, **JavaScript**, **Web3**, and the **1inch API**. This project merges blockchain-based decentralized authentication with the scalability and control of a server-side architecture.
 
