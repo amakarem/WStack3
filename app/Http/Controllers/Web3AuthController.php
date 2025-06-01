@@ -37,8 +37,8 @@ class Web3AuthController extends Controller
             $user->save();
         }
         Auth::login($user);
-        return redirect('/dashboard');
-        //echo json_encode(['id' => Auth::user()->id]);
+        // return redirect('/dashboard');
+        echo json_encode(['id' => Auth::user()->id]);
         //return redirect('/dashboard');
     }
 
