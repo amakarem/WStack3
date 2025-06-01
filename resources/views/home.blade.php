@@ -74,6 +74,7 @@
             <tr><th>From <span id="swapFrom"></span></th><td><input type="text" value="0.0" id="swapAmount"></td></tr>
             <tr><th>To <span id="swapTo"></span></th><td><input type="text" value="0.0" id="swapAmountVal" disabled></td></tr>
         </table>
+        <div id="swap_result"></div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" onclick="swapnow()">Swap</button>

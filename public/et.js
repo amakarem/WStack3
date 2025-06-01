@@ -146,6 +146,14 @@ async function swapnow() {
     });
 
     let data = await response.json();
+    try {
+        let r = document.getElementById("swap_result");
+        if (typeof data["description"] != 'undefined') {
+            r.innerHTML = '<span class="text-danger">' + data["description"] + '</span>';
+        }
+    } catch {
+
+    }
 
     console.log(data);
 }
