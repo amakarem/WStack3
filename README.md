@@ -75,3 +75,28 @@ The backend functions as a proxy and caching layer:
        |<---- Cached or Fresh Data ---------|
 
 [ Database (Optional - For logs, settings, non-wallet info) ]
+
+Requirements
+------------
+These services are required for normal operation:
+* [php](https://secure.php.net/downloads.php) 8.2+
+* [Composer](https://getcomposer.org/download/)
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Mbstring PHP Extension
+* Tokenizer PHP Extension
+* XML PHP Extension
+* Ctype PHP Extension
+* JSON PHP Extension
+* BCMath PHP Extension
+* [mysql](https://www.mysql.com/downloads/) or compatible DBMS
+
+## Setup
+
+- git clone
+- edit .env
+- composer install
+- php artisan migrate
+- php artisan voyager:install --with-dummy
+- php artisan voyager:admin admin@email.com --create
+- php artisan storage:link
