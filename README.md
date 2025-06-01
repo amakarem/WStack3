@@ -1,11 +1,5 @@
 ![WStack3](public/images/logo.png)
 
-# 🔐 Secure Server-Optimized DeFi Web Application
-
-A secure, high-performance DeFi web application built using **Laravel (PHP)**, **JavaScript**, **Web3**, and the **1inch API**. This project merges blockchain-based decentralized authentication with the scalability and control of a server-side architecture.
-
----
-
 # Project Overview  
 The goal is to develop a Web3 website using a **Server-Side API Proxy Architecture** that minimizes redundant API calls while preserving the full functionality expected from a typical Web3 site.
 
@@ -25,6 +19,12 @@ The goal is to develop a Web3 website using a **Server-Side API Proxy Architectu
 - **Enhanced security** through centralized control and protection mechanisms.  
 - **Better scalability** by managing API traffic more effectively.  
 - **Seamless user experience** with the same functionalities as a direct Web3 site.
+
+---
+
+# 🔐 Secure Server-Optimized DeFi Web Application
+
+A secure, high-performance DeFi web application built using **Laravel (PHP)**, **JavaScript**, **Web3**, and the **1inch API**. This project merges blockchain-based decentralized authentication with the scalability and control of a server-side architecture.
 
 ---
 
