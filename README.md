@@ -4,6 +4,28 @@ A secure, high-performance DeFi web application built using **Laravel (PHP)**, *
 
 ---
 
+# Project Overview  
+The goal is to develop a Web3 website using a **Server-Side API Proxy Architecture** that minimizes redundant API calls while preserving the full functionality expected from a typical Web3 site.
+
+---
+
+## How It Works  
+- Instead of the frontend directly communicating with Web3 API endpoints, all requests first go through a secure backend proxy.  
+- Security is enforced using **CSRF tokens** and **cross-origin protections**, ensuring that only legitimate requests are processed.  
+- The backend serves as an intermediary layer that **aggregates, manages, and optimizes** incoming requests from users or other applications.  
+- By consolidating these requests before forwarding them to the actual Web3 API, the system reduces duplicate calls, lowering latency and API usage costs.  
+- Once the backend receives responses from the Web3 API, it distributes the relevant data back to each individual user.
+
+---
+
+## Benefits  
+- **Improved efficiency** by reducing redundant calls to external Web3 APIs.  
+- **Enhanced security** through centralized control and protection mechanisms.  
+- **Better scalability** by managing API traffic more effectively.  
+- **Seamless user experience** with the same functionalities as a direct Web3 site.
+
+---
+
 ## 🚀 Key Features
 
 ### 1. Wallet-Based Authentication (No Passwords)
