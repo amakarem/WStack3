@@ -236,7 +236,7 @@ async function getall(all = false) {
         for (const address in data) {
             if (data.hasOwnProperty(address)) {
                 const token = data[address];
-                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td>' + token.balance + '</td><td>' + token.price + '</td><td><input type="text" value="0.0" id="amount' + token.address + '"></td><td><a id="q' + token.address + '" class="btn btn-info" onclick="getswapquote(\'' + token.address + '\')">Get Quote</a></td></tr>';
+                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td>' + token.balance + '</td><td>' + token.price + '</td><td><input type="text" value="0.0" id="amount' + token.address + '"></td><td><a id="q' + token.address + '" class="btn btn-primary" onclick="getswapquote(\'' + token.address + '\')">Get Quote</a></td></tr>';
                 // console.log("Address:", token.address);
                 // console.log("Symbol:", token.symbol);
                 // console.log("Name:", token.name);

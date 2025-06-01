@@ -58,7 +58,7 @@
         <table id="web3_wallet_1inch" class="table table-striped"></table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" onclick="getall(true)">Load all tokens</button>
+        <button type="button" class="btn btn-info" onclick="getall(true)">Load all tokens</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
