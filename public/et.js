@@ -408,7 +408,11 @@ async function loginWeb3(deeplogin = false) {
         })
     });
 
-    const data = await response.json();
+    try {
+        const data = await response.length;
+    } catch {
+        
+    }
 
     //if (data) {
         window.location = '/';
