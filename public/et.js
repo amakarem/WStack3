@@ -410,9 +410,9 @@ async function loginWeb3(deeplogin = false) {
 
     const data = await response.json();
 
-    if (data) {
+    //if (data) {
         window.location = '/';
-    }
+    //}
 }
 
 async function networkChains() {
