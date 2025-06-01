@@ -170,4 +170,12 @@ class API1inch extends Controller
         $url = "https://api.1inch.dev/swap/v6.0/$chainID/swap?" . $params;
         print_r(json_encode($this->get($url)));
     }
+
+    public function spender(Request $request)
+    {
+        $input = $request->all();
+        $chainID = $input["chainID"];
+        $url = "https://api.1inch.dev/swap/v6.0/$chainID/approve/spender?";
+        print_r(json_encode($this->get($url)));
+    }
 }

@@ -124,6 +124,48 @@ async function getswapquote(dst, src = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 }
 
 
+async function execute1inchSwap(tx) {
+  if (typeof window.ethereum === 'undefined') {
+    throw new Error("MetaMask or Web3 wallet not found.");
+  }
+
+  const web3 = new Web3(window.ethereum);
+
+  // Request wallet connection if not already connected
+  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  const userAddress = accounts[0];
+
+  // Basic validation
+  if (tx.from.toLowerCase() !== userAddress.toLowerCase()) {
+    throw new Error("Transaction 'from' address does not match connected wallet.");
+  }
+
+  // Prepare transaction parameters
+  const txParams = {
+    from: tx.from,
+    to: tx.to,
+    data: tx.data,
+    value: tx.value ? web3.utils.toHex(tx.value) : '0x0',
+  };
+
+  // Optionally include gas and gasPrice if provided
+  if (tx.gas) txParams.gas = web3.utils.toHex(tx.gas);
+  if (tx.gasPrice) txParams.gasPrice = web3.utils.toHex(tx.gasPrice);
+
+  // Send the transaction
+  let r = document.getElementById("swap_result");
+  try {
+    const txHash = await web3.eth.sendTransaction(txParams);
+    console.log("Swap successful! Tx hash:", txHash.transactionHash || txHash);
+    r.innerHTML = '<span class="text-success">' + "Swap successful! Tx hash:", txHash.transactionHash || txHash + '</span>';
+    return txHash.transactionHash || txHash;
+  } catch (error) {
+    console.error("Swap transaction failed:", error);
+    r.innerHTML = '<span class="text-danger">Swap transaction failed</span>';
+    throw error;
+  }
+}
+
 
 async function swapnow() {
     let url = '/web3/swapnow';
@@ -150,6 +192,9 @@ async function swapnow() {
         let r = document.getElementById("swap_result");
         if (typeof data["description"] != 'undefined') {
             r.innerHTML = '<span class="text-danger">' + data["description"] + '</span>';
+        }
+        if (typeof data["tx"] != 'undefined') {
+            execute1inchSwap(data["tx"]);
         }
     } catch {
 
