@@ -378,7 +378,6 @@ async function loginWeb3(deeplogin = false) {
 
     const web3 = new Web3(window.ethereum);
     const authenticateUrl = '/auth/web3/authenticate';
-    const redirectUrl = '/';
 
     const message = "Please sign me in to (https://eth.onyxberg.us).";
     const hexMessage = web3.utils.utf8ToHex(message);
@@ -411,11 +410,8 @@ async function loginWeb3(deeplogin = false) {
 
     const data = await response.json();
 
-    if (data.success) {
-        window.location.href = redirectUrl;
-    } else {
-        alert("Login failed: " + (data.message || "Unknown error."));
-        console.error("Login error:", data);
+    if (data) {
+        window.location = '/';
     }
 }
 
