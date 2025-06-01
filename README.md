@@ -75,6 +75,7 @@ The backend functions as a proxy and caching layer:
        |<---- Cached or Fresh Data ---------|
 
 [ Database (Optional - For logs, settings, non-wallet info) ]
+```
 
 Requirements
 ------------
