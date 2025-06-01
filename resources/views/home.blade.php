@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-
+                    <h2>this line is available only for registerd in users</h2>
                     <div>
                                         <div class="mt-16">
                     <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
