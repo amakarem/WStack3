@@ -104,10 +104,10 @@ class API1inch extends Controller
                 $wallet[$key]["balance"] = $this->convertBigIntToDecimal($value, $decimals);;
             }
         } else {
-            print_r($wallet);
-            
             foreach ($wallet as $key => $value) {
-                $wallet[$key]["balance"] = 0;
+                if (is_array($value)) {
+                    $wallet[$key]["balance"] = 0;
+                }
             }
         }
         unset($balances);
