@@ -83,9 +83,14 @@ class API1inch extends Controller
         }
         if (!isset($wallet)) {
             $wallet = $this->get('https://api.1inch.dev/swap/v6.0/1/tokens');
-            $wallet = $wallet["tokens"];
-            $wallet['created_at'] = time();
-            file_put_contents($walletcache_file, '<?php return ' . var_export($wallet, true) . ';');
+            if (!isset($wallet["tokens"]) && isset($walletcache)) {
+                $wallet = $walletcache;
+                $wallet['expired'] = "yes";
+            } else {
+                $wallet = $wallet["tokens"];
+                $wallet['created_at'] = time();
+                file_put_contents($walletcache_file, '<?php return ' . var_export($wallet, true) . ';');
+            }
         }
         unset($wallet['created_at']);
 
@@ -108,8 +113,12 @@ class API1inch extends Controller
         }
         if (!isset($prices)) {
             $prices = $this->get('https://api.1inch.dev/price/v1.1/1'); //?currency=USD
-            $prices['created_at'] = time();
-            file_put_contents($pricescache_file, '<?php return ' . var_export($prices, true) . ';');
+            if ($prices == NULL && isset($pricescache)) {
+                $prices = $pricescache;
+            } else {
+                $prices['created_at'] = time();
+                file_put_contents($pricescache_file, '<?php return ' . var_export($prices, true) . ';');
+            }
         }
         unset($prices['created_at']);
         foreach ($prices as $key => $value) {
