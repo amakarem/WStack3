@@ -85,7 +85,7 @@ class API1inch extends Controller
             $wallet = $this->get('https://api.1inch.dev/swap/v6.0/1/tokens');
             if (!isset($wallet["tokens"]) && isset($walletcache)) {
                 $wallet = $walletcache;
-                $wallet['expired'] = "yes";
+                $wallet['message'] = "WARNING: 1inch API token is expired this is cached data, update the API token.";
             } else {
                 $wallet = $wallet["tokens"];
                 $wallet['created_at'] = time();

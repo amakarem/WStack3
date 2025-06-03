@@ -231,6 +231,9 @@ async function getall(all = false) {
         });
 
         let data = await response.json();
+        if (typeof data['message'] == 'string') {
+            alert (data["message"]);
+        }
         // console.log(data);
         document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th>Balance</th><th>Price</th><th></th><th></th>";
         for (const address in data) {
