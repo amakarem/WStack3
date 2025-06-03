@@ -95,15 +95,16 @@ class API1inch extends Controller
         unset($wallet['created_at']);
 
         $balances = $this->get('https://api.1inch.dev/balance/v1.2/1/balances/' . $address);
-        foreach ($balances as $key => $value) {
-            if (!isset($wallet[$key])) {
-                continue;
+        if (is_array($balances)) {
+            foreach ($balances as $key => $value) {
+                if (!isset($wallet[$key])) {
+                    continue;
+                }
+                $decimals = $wallet[$key]["decimals"];
+                $wallet[$key]["balance"] = $this->convertBigIntToDecimal($value, $decimals);;
             }
-            $decimals = $wallet[$key]["decimals"];
-            $wallet[$key]["balance"] = $this->convertBigIntToDecimal($value, $decimals);;
         }
         unset($balances);
-
         $pricescache_file = base_path() . '/prices.php';
         if (file_exists($pricescache_file)) {
             $pricescache = include $pricescache_file;
