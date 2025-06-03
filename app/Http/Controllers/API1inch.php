@@ -103,6 +103,10 @@ class API1inch extends Controller
                 $decimals = $wallet[$key]["decimals"];
                 $wallet[$key]["balance"] = $this->convertBigIntToDecimal($value, $decimals);;
             }
+        } else {
+            foreach ($wallet as $key => $value) {
+                $wallet[$key]["balance"] = 0;
+            }
         }
         unset($balances);
         $pricescache_file = base_path() . '/prices.php';
