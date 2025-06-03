@@ -55,6 +55,7 @@
         <div id="web3_wallet_1inch_spinner" class="spinner-border m-5" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
+        <div id="error_msg" class="text-danger"></div>
         <table id="web3_wallet_1inch" class="table table-striped"></table>
       </div>
       <div class="modal-footer">

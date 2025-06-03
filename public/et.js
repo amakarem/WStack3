@@ -232,14 +232,21 @@ async function getall(all = false) {
 
         let data = await response.json();
         if (typeof data['message'] == 'string') {
-            alert (data["message"]);
+            alert(data["message"]);
+            try {
+                document.getElementById("error_msg").innerHTML = data["message"];
+            } catch {
+                alert(data["message"]);
+            }
         }
         // console.log(data);
         document.getElementById("web3_wallet_1inch").innerHTML = "<th>Token</th><th>Balance</th><th>Price</th><th></th><th></th>";
         for (const address in data) {
             if (data.hasOwnProperty(address)) {
                 const token = data[address];
-                document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td>' + token.balance + '</td><td>' + token.price + '</td><td><input type="text" value="0.0" id="amount' + token.address + '"></td><td><a id="q' + token.address + '" class="btn btn-primary" onclick="getswapquote(\'' + token.address + '\')">Get Quote</a></td></tr>';
+                if (typeof token == 'object') {
+                    document.getElementById("web3_wallet_1inch").innerHTML += '<tr><th><img class="ico" src="' + token.logoURI + '">' + token.symbol + '</th><td>' + token.balance + '</td><td>' + token.price + '</td><td><input type="text" value="0.0" id="amount' + token.address + '"></td><td><a id="q' + token.address + '" class="btn btn-primary" onclick="getswapquote(\'' + token.address + '\')">Get Quote</a></td></tr>';
+                }
                 // console.log("Address:", token.address);
                 // console.log("Symbol:", token.symbol);
                 // console.log("Name:", token.name);
